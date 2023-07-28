@@ -41,7 +41,8 @@
                                 {% endfor %}
                             </div>
                             <div id="options">
-                                <a href="#">Add others number</a>
+                                <a href="{% url 'managerContact:addNumber' person.id %}">Add others number</a>
+                                <a href="#">Update</a>
                                 <a href="#">Delete</a>
                             </div>
                         </div>
