@@ -6,14 +6,14 @@ The main goal of this app is to organize saved contacts votes.
 ## Features
 
 The features of application : 
-[-] Add new contacts
-[-] Add others numbers to a contact saved
-[-] Update properties of a contact (name , email , numbers)
-[-] Delete a contact
-[-] Delete all contacts
-[-] View contacts deleted, in a section , "contacts deleted"
-[-] Restore a contact
-[-] Restore all contacts
+- Add new contacts
+- Add others numbers to a contact saved
+- Update properties of a contact (name , email , numbers)
+- Delete a contact
+- Delete all contacts
+- View contacts deleted, in a section , "contacts deleted"
+- Restore a contact
+- Restore all contacts
 
 
 ## Installation
