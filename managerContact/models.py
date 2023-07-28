@@ -26,4 +26,6 @@ class NumberTel(models.Model):
     # Number
     other_number = models.CharField(max_length=80)
     
+    def __str__(self) -> str:
+        return self.other_number
     
