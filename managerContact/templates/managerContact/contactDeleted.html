@@ -1,3 +1,48 @@
-{% for person in persons %}
-    {{person}}
-{% endfor %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  
+    <div id="main">
+        <h1>Contacts Manager</h1>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mail</th>
+                <th>Contacts</th>
+                <th>Options</th>
+            </tr>
+            <tbody>
+                {% for person in persons %}
+                    <tr>
+                        <td>{{person.id}}</td>
+                        <td>{{person.name_person}}</td>
+                        <td>{{person.email}}</td>
+                        <td>
+                            {% for number in person.numbertel_set.all %}
+                                <span>{{number.other_number}}</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{% url 'managerContact:restoreContact' person.id %}">Restore</a>
+                            <a href="{% url 'managerContact:deleteContact' person.id %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <a href="{% url 'managerContact:deleteAll' %}">Delete all contacts</a>
+            <a href="{% url 'managerContact:restoreAll' %}">Restore all contacts</a>
+        </div>
+        <a href="{% url 'managerContact:index' %}">Go to home page</a>
+    </div>
+
+</body>
+</html>

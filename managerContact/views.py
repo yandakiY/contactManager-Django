@@ -110,7 +110,7 @@ def updateContact(request , person_id):
 def removeContact(request , person_id):
     
     # lists of id in database and IndexView (only Contact with views eq True)
-    lists_id = [p.id for p in Person.objects.all() if p.views]
+    lists_id = [p.id for p in Person.objects.all() if p.views == True]
     print(lists_id)
     
     if(person_id in lists_id):
@@ -128,7 +128,7 @@ def removeContact(request , person_id):
 
 def removeAll(request):
     # lists of id in database and IndexView (only Contact with views eq True)
-    lists_id = [p.id for p in Person.objects.all() if p.views]
+    lists_id = [p.id for p in Person.objects.all() if p.views == True]
     print(lists_id)
     
     if len(lists_id) == 0:
@@ -140,31 +140,33 @@ def removeAll(request):
     for id in lists_id:
         person = Person.objects.get(id = id)
         # delete
-        person.delete()
+        person.views = False
+        # save
+        person.save()
     # redirect to home page
     return HttpResponseRedirect(reverse("managerContact:index" , args=()))
     
 
-def removeAllContact(request , person_id):
-    # get item who correspond to id
-    # Lists of contact in database
-    lists_id = [p.id for p in Person.objects.all()]
+# def removeAllContact(request , person_id):
+#     # get item who correspond to id
+#     # Lists of contact in database
+#     lists_id = [p.id for p in Person.objects.all()]
     
-    if (person_id in lists_id):
-        person = Person.objects.get(id=person_id)
+#     if (person_id in lists_id):
+#         person = Person.objects.get(id=person_id)
         
-        # delete
-        person.delete()
+#         # delete
+#         person.delete()
         
-        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
-    # else:
+#         return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+#     # else:
     
-    return HttpResponseRedirect("Error 404")
+#     return HttpResponseRedirect("Error 404")
 
 def deleteContact(request , person_id):
     # get item who correspond to id
     # Lists of contact in database
-    lists_id = [p.id for p in Person.objects.all()]
+    lists_id = [p.id for p in Person.objects.all() if p.views == False]
     
     if (person_id in lists_id):
         person = Person.objects.get(id=person_id)
@@ -172,18 +174,18 @@ def deleteContact(request , person_id):
         # delete
         person.delete()
         
-        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
-    # else:
+        return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
     
-    return HttpResponseRedirect("Error 404")
+    return render(request , "managerContact/error400.html")
+
 
 def deleteAllContact(request):
     # get lists of all id
-    lists_id = [p.id for p in Person.objects.all()]
+    lists_id = [p.id for p in Person.objects.all() if p.views == False]
      
     
     if len(lists_id) == 0:
-        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+        return render(request , "managerContact/error400.html")
     else:
         # browse each element, and delete
         for id in lists_id:
@@ -191,6 +193,38 @@ def deleteAllContact(request):
             # delete
             person.delete()
             
-    return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
+
+
+def restoreContact(request , person_id):
+    # get lists of all id
+    lists_id = [p.id for p in Person.objects.all() if p.views == False]
     
+    if (person_id in lists_id):
+        person = Person.objects.get(id = person_id)
+        # change property views
+        person.views = True
+        # save that
+        person.save()
+        # redirect to
+        return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
+        
+    else:
+        return render(request , "managerContact/error400.html")
+
+def restoreAllContact(request):
+    
+    # get lists of all id
+    lists_id = [p.id for p in Person.objects.all() if p.views == False]
+    
+    if len(lists_id) == 0:
+        return render(request , "managerContact/error400.html")
+    else:
+        
+        for id in lists_id:
+            person = Person.objects.get(id = id)
+            # delete
+            person.views = True
+            
+    return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
     

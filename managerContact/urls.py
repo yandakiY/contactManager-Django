@@ -10,9 +10,10 @@ urlpatterns = [
     path('updateContact/<int:person_id>' , views.updateContactView , name="updateContact"),
     path('updateContactForm<int:person_id>', views.updateContact , name="updateContactForm" ),
     path('removeContact/<int:person_id>' , views.removeContact , name="removeContact"),
-    path('removeAll' , views.removeAllContact , name="removeAll"),
+    path('removeAll' , views.removeAll , name="removeAll"),
     path('deleteContact/<int:person_id>' , views.deleteContact , name="deleteContact"),
     path('deleteAll' , views.deleteAllContact , name="deleteAll"),
     path('ContactDeletedView' , views.ContactDeletedView.as_view() , name="ContactDeletedView"),
-    
+    path('restoreContact/<int:person_id>' , views.restoreContact , name="restoreContact"),
+    path('restoreAll' , views.restoreAllContact , name="restoreAll")
 ]
