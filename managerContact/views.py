@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
     context_object_name = "persons"
     
     def get_queryset(self):
-        return Person.objects.all().order_by("-date_creation")
+        return Person.objects.all().order_by("-date_creation").filter(views=True)
 
 
 def addNumberView(request, person_id):
@@ -25,6 +25,16 @@ def updateContactView(request , person_id):
     # get item person which correspond to id
     person = Person.objects.get(id=person_id)
     return render(request , "managerContact/updateContact.html" , {"person":person})
+
+
+class ContactDeletedView(generic.ListView):
+    # model = Person
+    template_name = "managerContact/contactDeleted.html"
+    context_object_name = "persons"
+    
+    def get_queryset(self):
+        return Person.objects.all().order_by("-date_creation").filter(views=False)
+
 
 def addPerson(request):
     # get property name , email, and number
@@ -96,6 +106,60 @@ def updateContact(request , person_id):
     # redirection to index
     return HttpResponseRedirect(reverse("managerContact:index" , args=()))
 
+
+def removeContact(request , person_id):
+    
+    # lists of id in database and IndexView (only Contact with views eq True)
+    lists_id = [p.id for p in Person.objects.all() if p.views]
+    print(lists_id)
+    
+    if(person_id in lists_id):
+        # get item who correspond
+        person = Person.objects.get(id = person_id)
+        # change value property views
+        person.views = False
+        # save changement
+        person.save()
+        # redirection to index
+        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    
+    return render(request , "managerContact/error400.html")
+    # pass
+
+def removeAll(request):
+    # lists of id in database and IndexView (only Contact with views eq True)
+    lists_id = [p.id for p in Person.objects.all() if p.views]
+    print(lists_id)
+    
+    if len(lists_id) == 0:
+        # Nothing
+        # redirectio to home page
+        return HttpResponseRedirect(reverse("managerContact:index" , args=()))
+    
+    # browse each element list id and delete
+    for id in lists_id:
+        person = Person.objects.get(id = id)
+        # delete
+        person.delete()
+    # redirect to home page
+    return HttpResponseRedirect(reverse("managerContact:index" , args=()))
+    
+
+def removeAllContact(request , person_id):
+    # get item who correspond to id
+    # Lists of contact in database
+    lists_id = [p.id for p in Person.objects.all()]
+    
+    if (person_id in lists_id):
+        person = Person.objects.get(id=person_id)
+        
+        # delete
+        person.delete()
+        
+        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    # else:
+    
+    return HttpResponseRedirect("Error 404")
 
 def deleteContact(request , person_id):
     # get item who correspond to id

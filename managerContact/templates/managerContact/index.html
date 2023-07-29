@@ -44,7 +44,7 @@
                             <div id="options">
                                 <a href="{% url 'managerContact:addNumber' person.id %}">Add others number</a>
                                 <a href="{% url 'managerContact:updateContact' person.id %}">Update</a>
-                                <a href="{% url 'managerContact:deleteContact' person.id %}">Delete</a>
+                                <a href="{% url 'managerContact:removeContact' person.id %}">Delete</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -55,8 +55,8 @@
             </div>
         </div>
         <div>
-            <a href="#">View Contacts deleted</a>
-            <a href="{% url 'managerContact:deleteAll' %}">Delete all contacts</a>
+            <a href="{% url 'managerContact:ContactDeletedView' %}">View Contacts deleted</a>
+            <a href="{% url 'managerContact:removeAll' %}">Delete all contacts</a>
         </div>
     </div>
 
