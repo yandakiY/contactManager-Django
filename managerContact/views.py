@@ -225,6 +225,8 @@ def restoreAllContact(request):
             person = Person.objects.get(id = id)
             # delete
             person.views = True
+            # save
+            person.save()
             
     return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
     

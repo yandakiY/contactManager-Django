@@ -14,6 +14,7 @@ The features of application :
 - View contacts deleted, in a section , "contacts deleted"
 - Restore a contact
 - Restore all contacts
+- Implementation Error Page
 
 
 ## Installation
