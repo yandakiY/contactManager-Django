@@ -95,4 +95,35 @@ def updateContact(request , person_id):
     
     # redirection to index
     return HttpResponseRedirect(reverse("managerContact:index" , args=()))
+
+
+def deleteContact(request , person_id):
+    # get item who correspond to id
+    # Lists of contact in database
+    lists_id = [p.id for p in Person.objects.all()]
+    
+    if (person_id in lists_id):
+        person = Person.objects.get(id=person_id)
+        
+        # delete
+        person.delete()
+        
+        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    # else:
+    
+    return HttpResponseRedirect("Error 404")
+
+def deleteAllContact(request):
+    # get lists of all id
+    lists_id = [p.id for p in Person.objects.all()]
+     
+    
+    if len(lists_id) == 0:
+        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    else:
+        # browse each element, and delete
+        for id in lists_id:
+            person = Person.objects.get(id = id)
+            # delete
+            person.delete()
     
