@@ -32,6 +32,7 @@
             </div>
             <div id="right">
                 <div>
+                    {% if persons %}
                     {% for person in persons %}
                         <div>
                             <div>
@@ -47,6 +48,9 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {% else %}
+                        <div id="not-contact">No contacts in database</div>
+                    {% endif %}
                 </div>
             </div>
         </div>

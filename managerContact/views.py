@@ -126,4 +126,7 @@ def deleteAllContact(request):
             person = Person.objects.get(id = id)
             # delete
             person.delete()
+            
+    return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    
     
