@@ -37,21 +37,21 @@
                 </form>
             </div>
             <div id="right">
-                <div>
+                <div id="info-list">
                     {% if persons %}
                     <h1>Contact list</h1>
                     {% for person in persons %}
-                        <div>
-                            <div>
+                        <div id="contact-bloc">
+                            <div id="props">
                                 {{person.name_person}}
                                 {% for number in person.numbertel_set.all %}
                                     {{number}}
                                 {% endfor %}
                             </div>
                             <div id="options">
-                                <a href="{% url 'managerContact:addNumber' person.id %}">Add others number</a>
-                                <a href="{% url 'managerContact:updateContact' person.id %}">Update</a>
-                                <a href="{% url 'managerContact:removeContact' person.id %}">Delete</a>
+                                <a id="addNumber" href="{% url 'managerContact:addNumber' person.id %}">Add others number</a>
+                                <a id="updateContact" href="{% url 'managerContact:updateContact' person.id %}">Update</a>
+                                <a id="removeContact" href="{% url 'managerContact:removeContact' person.id %}">Delete</a>
                             </div>
                         </div>
                     {% endfor %}

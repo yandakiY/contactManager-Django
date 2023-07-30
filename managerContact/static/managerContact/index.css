@@ -36,6 +36,7 @@ html , body{
 
 #main #section-top #left{
     border: solid 1px;
+    border-radius: 5px;
     padding: 5px;
 }
 
@@ -75,6 +76,71 @@ html , body{
     background-color:rgba(29, 90, 121, 0.715);
 }
 
+
+#main #section-top #right #info-list{
+    font-size: 15px;
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 15px;
+    /* Height */
+    height: 350px;
+    overflow-y: scroll;
+    /* Display */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#main #section-top #right #info-list #contact-bloc{
+    border-radius: 5px;
+}
+#main #section-top #right #info-list #contact-bloc #props{
+    font-size: 18px;
+}
+
+#main #section-top #right #info-list #contact-bloc #options{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#main #section-top #right #info-list #contact-bloc #addNumber{
+    border:solid 1px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 3px;
+
+    /* color */
+    background-color: #1D5B79;
+    color:white;
+    font-weight: bold;
+}
+#main #section-top #right #info-list #contact-bloc #updateContact{
+    border:solid 1px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 3px;
+    /* color */
+    background-color: #1B9C85;
+    color:white;
+    font-weight: bold;
+}
+#main #section-top #right #info-list #contact-bloc #removeContact{
+    border:solid 1px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 3px;
+    /* color */
+    background-color: #EF6262;
+    color:white;
+    font-weight: bold;
+}
+
+#main #section-top #right #contact-bloc{
+    border:solid 1px;
+    padding: 5px;
+}
+
+
 #linkBottom{
     margin-top: 20px;
 }
@@ -111,5 +177,4 @@ html , body{
 #deleteAllContact:hover{
     background-color: #cc4a4aee;
     transition: all ease .5s;
-
 }
