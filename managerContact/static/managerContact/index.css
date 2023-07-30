@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html , body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Lato, sans-serif;
+}
+
+#main{
+    border:solid 1px black;
+    padding:15px;
+    border-radius: 5px;
+    font-size: 20px;
+
+    /* Position */
+    display: flex;
+    flex-direction: row;
+}
+
+#main #section-top{
+    /* border:solid 1px; */
+    padding: 10px;
+
+    /* position */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+#main #section-top #left{
+    border: solid 1px;
+    padding: 5px;
+}
+
+#main #section-top #left form #input-contact{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+#main #section-top #left form #input-contact input{
+    height: 40px;
+    font-size: 18px;
+    padding-left: 10px;
+    border: solid 1px;
+    border-radius: 3px;
+}
+
+#main #section-top #left form #input-contact input:focus{
+    outline: none;
+}
+
+
+
+#main #section-top #left form #input-contact input[type="submit"]{
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color:white;
+    background-color: #1D5B79;
+    border-radius: 5px;
+    cursor:pointer;
+
+}
+
+#main #section-top #left form #input-contact input[type="submit"]:hover{
+    transition: all ease .5s;
+    background-color:rgba(29, 90, 121, 0.715);
+}
+
+#linkBottom{
+    margin-top: 20px;
+}
+
+#viewContactDeleted{
+    background-color: #468B97;
+    padding:10px;
+    border-radius: 5px;
+
+    font-weight: bold;
+    color:white;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+#viewContactDeleted:hover{
+    background-color: #3d828ed7;
+    transition: all ease .5s;
+}
+
+#deleteAllContact{
+    background-color: #EF6262;
+    padding:10px;
+    border-radius: 5px;
+
+    font-weight: bold;
+    color:white;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+#deleteAllContact:hover{
+    background-color: #cc4a4aee;
+    transition: all ease .5s;
+
+}

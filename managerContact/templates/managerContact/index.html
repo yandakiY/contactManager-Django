@@ -1,38 +1,45 @@
+{% load static %}
+
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Titre de la page</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+    <meta charset="utf-8">
+    <title>Contacts Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Josefin+Sans:ital,wght@1,600&family=Lato&family=Pacifico&family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'managerContact/index.css' %}">
 </head>
 <body>
   
     <div id="main">
-        <h1>Contacts Manager</h1>
         <div id="section-top">
             <div id="left">
+                <h1>Contact registration</h1>
                 {% if error_message %} {{error_message}} {% endif %}
                 <form method="POST" action="{% url 'managerContact:addPerson' %}">
                     {% csrf_token %}
                     <div id="input-contact">
                         <label>Name : </label>
-                        <input type="text" id="name_person" name="name_person" placeholder="Name contact" />
+                        <input type="text" id="name_person" required="" name="name_person" placeholder="Name contact" />
                     </div>
                     <div id="input-contact">
                         <label>Email : </label>
-                        <input type="email" name="email" placeholder="E-mail" />
+                        <input type="email" name="email" required="" placeholder="E-mail" />
                     </div>
                     <div id="input-contact">
                         <label>Number telephone : </label>
-                        <input type="text" name="number_tel" placeholder="Number contact" />
+                        <input type="text" name="number_tel" required="" placeholder="Number contact" />
                     </div>
-                    <input type="submit" value="Save" />
+                    <div id="input-contact">
+                        <input type="submit" value="Save" />
+                    </div>
                 </form>
             </div>
             <div id="right">
                 <div>
                     {% if persons %}
+                    <h1>Contact list</h1>
                     {% for person in persons %}
                         <div>
                             <div>
@@ -54,11 +61,10 @@
                 </div>
             </div>
         </div>
-        <div>
-            <a href="{% url 'managerContact:ContactDeletedView' %}">View Contacts deleted</a>
-            <a href="{% url 'managerContact:removeAll' %}">Delete all contacts</a>
-        </div>
     </div>
-
+    <div id="linkBottom">
+        <a id="viewContactDeleted" href="{% url 'managerContact:ContactDeletedView' %}">View Contacts deleted</a>
+        <a id="deleteAllContact" href="{% url 'managerContact:removeAll' %}">Delete all contacts</a>
+    </div>
 </body>
 </html>
