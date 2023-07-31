@@ -25,7 +25,7 @@ class NumberTel(models.Model):
     # Person 
     person = models.ForeignKey(Person,  on_delete=models.CASCADE)
     # Number
-    other_number = models.CharField(max_length=80)
+    other_number = models.CharField(max_length=100)
     
     def __str__(self) -> str:
         return self.other_number
