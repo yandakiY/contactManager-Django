@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
     context_object_name = "persons"
     
     def get_queryset(self):
-        return Person.objects.all().order_by("-date_creation").filter(views=True)
+        return Person.objects.all().order_by("date_creation").filter(views=True)
 
 
 def addNumberView(request, person_id):

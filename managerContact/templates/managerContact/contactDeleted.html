@@ -1,15 +1,17 @@
+
+{% load static %}
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <title>Titre de la page</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="stylesheet" href="{% static 'managerContact/contactDeleted.css' %}">
+  {% comment %} <script src="script.js"></script> {% endcomment %}
 </head>
 <body>
   
     <div id="main">
-        <h1>Contacts Manager</h1>
+        <h1>Contacts Deleted</h1>
         {% if persons %}
         <table>
             <tr>
@@ -31,22 +33,24 @@
                             {% endfor %}
                         </td>
                         <td>
-                            <a href="{% url 'managerContact:restoreContact' person.id %}">Restore</a>
-                            <a href="{% url 'managerContact:deleteContact' person.id %}">Delete</a>
+                            <a id="restoreContact" href="{% url 'managerContact:restoreContact' person.id %}">Restore</a>
+                            <a id="deleteContact" href="{% url 'managerContact:deleteContact' person.id %}">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <div>
-            <a href="{% url 'managerContact:deleteAll' %}">Delete all contacts</a>
-            <a href="{% url 'managerContact:restoreAll' %}">Restore all contacts</a>
+        <div id="links">
+            <a id="deleteAll" href="{% url 'managerContact:deleteAll' %}">Delete all contacts</a>
+            <a id="restoreAll" href="{% url 'managerContact:restoreAll' %}">Restore all contacts</a>
         </div>
         {% else %}
             <div>No contacts deleted.</div>
         {% endif %}
-        <a href="{% url 'managerContact:index' %}">Go to home page</a>
     </div>
 
+    <div>
+        <a href="{% url 'managerContact:index' %}">Go to home page</a>
+    </div>
 </body>
 </html>

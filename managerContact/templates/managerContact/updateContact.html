@@ -1,17 +1,19 @@
+
+{% load static %}
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <title>Titre de la page</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{% static 'managerContact/updateContact.css' %}">
   <script src="script.js"></script>
 </head>
 <body>
   
     <div id="main">
-        <h1>Contacts Manager</h1>
         <div id="section-top">
             <div id="left">
+                <h1>Contacts Manager</h1>
                 {% comment %} {% if error_message %} {{error_message}} {% endif %} {% endcomment %}
                 <form method="POST" action="{% url 'managerContact:updateContactForm' person.id %}">
                     {% csrf_token %}
@@ -32,11 +34,16 @@
                     {% endfor %}
 
                     {% comment %} Button submit {% endcomment %}
-                    <input type="submit" value="Update"/>
+                    <div id="input-contact">
+                        <input type="submit" value="Update contact"/>
+                    </div>
                 </form>
             </div>
-            <a href="{% url 'managerContact:index' %}">Go home</a>
         </div>
+    </div>
+
+    <div id="linkBottom">
+        <a id="goHome" href="{% url 'managerContact:index' %}">Go home</a>
     </div>
 
 </body>

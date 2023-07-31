@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html , body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Lato, sans-serif;
+}
+
+#main{
+    border:solid 1px black;
+    padding:15px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    /* Position */
+    /* display: flex;
+    flex-direction: row; */
+}
+
+#main table{
+    border:solid 1px;
+}
+
+#main td , th{
+    border:solid 1px;
+    padding: 10px;
+}
+
+#restoreContact{
+    border:solid 1px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 3px;
+    /* color */
+    background-color: #2f6169;
+
+    color:white;
+    font-weight: bold;
+    padding:6px;
+}
+
+#deleteContact{
+    border:solid 1px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 3px;
+    /* color */
+    background-color: #b94444;
+    color:white;
+    font-weight: bold;
+    padding:6px;
+}
+
+#links{
+    margin-top: 15px;
+}
+
+#links #restoreAll{
+    background-color: #468B97;
+    padding:10px;
+    border-radius: 5px;
+
+    font-weight: bold;
+    color:white;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+#links #restoreAll:hover{
+    background-color: #3d828ed7;
+    transition: all ease .5s;
+}
+
+#links #deleteAll{
+    background-color: #EF6262;
+    padding:10px;
+    border-radius: 5px;
+
+    font-weight: bold;
+    color:white;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+#links #deleteAll:hover{
+    background-color: #cc4a4aee;
+    transition: all ease .5s;
+}

@@ -1,17 +1,18 @@
+{% load static %}
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <title>Titre de la page</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{% static 'managerContact/addNumber.css' %}">
   <script src="script.js"></script>
 </head>
 <body>
   
     <div id="main">
-        <h1>Contacts Manager</h1>
         <div id="section-top">
             <div id="left">
+                <h1>Add number </h1>
                 {% comment %} {% if error_message %} {{error_message}} {% endif %} {% endcomment %}
                 <form method="POST" action="{% url 'managerContact:addOtherNumber' person.id %}">
                     {% csrf_token %}
@@ -35,33 +36,21 @@
                         <label>New number phone : </label>
                         <input type="text" name="new_number_tel" required placeholder="New number contact" />
                     </div>
-                    <input type="submit" value="Save new contact"/>
+                    
+                    <div id="input-contact">
+                        <input type="submit" value="Add number"/>
+                    </div>
                 </form>
             </div>
-            <a href="{% url 'managerContact:index' %}">Go home</a>
-            {% comment %} <div id="right">
-                <div>
-                    {% for person in persons %}
-                        <div>
-                            <div>
-                                {{person.name_person}}
-                                {% for number in person.numbertel_set.all %}
-                                    {{number}}
-                                {% endfor %}
-                            </div>
-                            <div id="options">
-                                <a href="#">Add others number</a>
-                                <a href="#">Delete</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div> {% endcomment %}
         </div>
         {% comment %} <div>
-            <a href="#">View Contacts deleted</a>
         </div> {% endcomment %}
     </div>
+    <div id="linkBottom">
+        <a id="goHome" href="{% url 'managerContact:index' %}">Go home</a>
+    </div>
+    
+
 
 </body>
 </html>
