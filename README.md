@@ -17,8 +17,8 @@ The features of application :
 - Implementation Error Page
 
 ## Screenshots
-<img src="/images/index.png" alt="Page Index" width="400" height="500">
-<img src="/images/update.png" alt="Page Index" height="500">
+<img src="/images/index.png" alt="Page Index" width="600" height="500">
+<img src="/images/update.png" alt="Page Index" width="250" height="500">
 <img src="/images/addNumber.png" alt="Page Index" height="500">
 <img src="/images/listsdeleted.png" alt="Page Index" width="400" height="500">
 
