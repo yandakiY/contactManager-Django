@@ -16,15 +16,32 @@ class IndexView(generic.ListView):
 
 
 def addNumberView(request, person_id):
-    # Get item person by id
-    person = Person.objects.get(pk=person_id)
-    return render(request , "managerContact/addNumber.html", {"person":person})
+    # lists id with props.views eq True (not deleted)
+    lists_id = [p.id for p in Person.objects.all() if p.views == True]
+    
+    if person_id in lists_id:
+        # Get item person by id
+        person = Person.objects.get(pk=person_id)
+        # open html file "addNumber"
+        return render(request , "managerContact/addNumber.html", {"person":person})
+    
+    return render(request , "managerContact/error400.html" , {"error":"you are not authorized to do this operation"})
     
 
 def updateContactView(request , person_id):
-    # get item person which correspond to id
-    person = Person.objects.get(id=person_id)
-    return render(request , "managerContact/updateContact.html" , {"person":person})
+    
+    # lists id with props.views eq True (not deleted)
+    lists_id = [p.id for p in Person.objects.all() if p.views == True]
+    
+    # print("id", person_id)
+    print("Lists contact true" ,lists_id)
+    
+    if person_id in lists_id:
+        # get item person which correspond to id
+        person = Person.objects.get(id=person_id)
+        return render(request , "managerContact/updateContact.html" , {"person":person})
+    
+    return render(request , "managerContact/error400.html" ,{"error":"you are not authorized to do this operation"})
 
 
 class ContactDeletedView(generic.ListView):
@@ -33,6 +50,7 @@ class ContactDeletedView(generic.ListView):
     context_object_name = "persons"
     
     def get_queryset(self):
+        # Send item person, with props "views" eq False. (Person deleted)
         return Person.objects.all().order_by("-date_creation").filter(views=False)
 
 
@@ -54,7 +72,7 @@ def addPerson(request):
     last_contact.numbertel_set.create(other_number=number_tel)
     
     
-    if not created:
+    if created:
         return render(request , "managerContact/index.html" , {"message_error":"Contacts already present"})
     
     return HttpResponseRedirect(reverse("managerContact:index" , args=()))
@@ -62,49 +80,59 @@ def addPerson(request):
 
 def addOtherNumber(request , person_id):
     # get the element who correspond to id
-    person = get_object_or_404(Person , pk = person_id)
     
-    new_number = request.POST.get('new_number_tel')
+    #lists of id with views eq to True
+    lists_id = [p.id for p in Person.objects.all() if p.views == True]
     
-    # add number to this person
-    person.numbertel_set.create(other_number=new_number)
-    # redirection to index
-    return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    if person_id in lists_id:
+        # get item which correspond
+        person = get_object_or_404(Person , pk = person_id)
+        
+        new_number = request.POST.get('new_number_tel')
+        
+        # add number to this person
+        person.numbertel_set.create(other_number=new_number)
+        # redirection to index
+        return HttpResponseRedirect(reverse('managerContact:index' , args=()))
+    
+    return render(request , "managerContact/error400.html" , {"error":"you are not authorized to do this operation"})
 
 def updateContact(request , person_id):
-    # get the item which correspond 
-    # change name , email and numbers 
-    person = get_object_or_404(Person , id=person_id)
     
-    person.name_person = escape(request.POST.get('name_person'))
+    lists_id = [p.id for p in Person.objects.all() if p.views == True]
     
-    person.email = escape(request.POST.get('email'))
-    person.save()
-    
-    # get all numbers associate to this person
-    # browse each number 
-    # update and save
-    
-    # get all numbers from form
-    for i , number in enumerate(person.numbertel_set.all() , start=1):
-        # input from formulaire in htmk file
-        input = request.POST.get(f'number{i}')
-        # 
-        # person.numbertel_set.get(other_number=number).other_number = input 
-        # delete the number present
-        person.numbertel_set.get(other_number=number).delete()
-        # and create a new number with the value which come to the form in html file
-        person.numbertel_set.create(other_number=input)
-        # person.save()
+    if(person_id in lists_id):
         
-        # print(f'Depuis Forms: {input} Database {number} , index:{i}')
-    
-    
-    # Save , first change
-    # person.save()
-    
-    # redirection to index
-    return HttpResponseRedirect(reverse("managerContact:index" , args=()))
+        # get the item which correspond 
+        # change name , email and numbers 
+        person = get_object_or_404(Person , id=person_id)
+        
+        person.name_person = escape(request.POST.get('name_person'))
+        
+        person.email = escape(request.POST.get('email'))
+        person.save()
+        
+        # get all numbers associate to this person
+        # browse each number 
+        # update and save
+        
+        # get all numbers from form
+        for i , number in enumerate(person.numbertel_set.all() , start=1):
+            # input from formulaire in htmk file
+            input = request.POST.get(f'number{i}')
+            # 
+            # person.numbertel_set.get(other_number=number).other_number = input 
+            # delete the number present
+            person.numbertel_set.get(other_number=number).delete()
+            # and create a new number with the value which come to the form in html file
+            person.numbertel_set.create(other_number=input)
+            # person.save()
+            
+            # print(f'Depuis Forms: {input} Database {number} , index:{i}')
+        
+        return HttpResponseRedirect(reverse("managerContact:index" , args=()))
+    else:
+        return render(request , "managerContact/error400.html" ,{"error":"you are not authorized to do this operation"})
 
 
 def removeContact(request , person_id):
@@ -123,15 +151,14 @@ def removeContact(request , person_id):
         # redirection to index
         return HttpResponseRedirect(reverse('managerContact:index' , args=()))
     
-    return render(request , "managerContact/error400.html")
-    # pass
+    return render(request , "managerContact/error400.html" , {"error":"you are not authorized to do this operation"})
 
 def removeAll(request):
     # lists of id in database and IndexView (only Contact with views eq True)
     lists_id = [p.id for p in Person.objects.all() if p.views == True]
     print(lists_id)
     
-    if len(lists_id) == 0:
+    if len(lists_id) == 0: # Lists of contact is empty
         # Nothing
         # redirectio to home page
         return HttpResponseRedirect(reverse("managerContact:index" , args=()))
@@ -169,14 +196,14 @@ def deleteContact(request , person_id):
     lists_id = [p.id for p in Person.objects.all() if p.views == False]
     
     if (person_id in lists_id):
+        # get item who correspond
         person = Person.objects.get(id=person_id)
-        
         # delete
         person.delete()
-        
+        # redirection to ...
         return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
     
-    return render(request , "managerContact/error400.html")
+    return render(request , "managerContact/error400.html", {"error":"you are not authorized to do this operation"})
 
 
 def deleteAllContact(request):
@@ -185,7 +212,7 @@ def deleteAllContact(request):
      
     
     if len(lists_id) == 0:
-        return render(request , "managerContact/error400.html")
+        return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
     else:
         # browse each element, and delete
         for id in lists_id:
@@ -210,7 +237,7 @@ def restoreContact(request , person_id):
         return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
         
     else:
-        return render(request , "managerContact/error400.html")
+        return render(request , "managerContact/error400.html" , {"error":"you are not authorized to do this operation"} )
 
 def restoreAllContact(request):
     
@@ -218,7 +245,7 @@ def restoreAllContact(request):
     lists_id = [p.id for p in Person.objects.all() if p.views == False]
     
     if len(lists_id) == 0:
-        return render(request , "managerContact/error400.html")
+        return HttpResponseRedirect(reverse('managerContact:ContactDeletedView' , args=()))
     else:
         
         for id in lists_id:

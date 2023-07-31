@@ -1,1 +1,20 @@
-Error
+{% load static %}
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Contacts Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Josefin+Sans:ital,wght@1,600&family=Lato&family=Pacifico&family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'managerContact/error.css' %}">
+</head>
+<body>
+  
+    <div id="main">
+        <h1>Error : <br> {{error|upper}}</h1>
+    </div>
+    <a id="index" href="{% url 'managerContact:index' %}">Go home</a> 
+</body>
+</html>

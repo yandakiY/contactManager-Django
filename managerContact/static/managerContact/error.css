@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html , body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Lato, sans-serif;
+}
+
+#main{
+    border:solid 1px black;
+    padding:15px;
+    border-radius: 5px;
+    font-size: 15px;
+
+    /* Position */
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+}
+
+ #index{
+    margin-top: 10px;
+    color:white;
+    font-weight: bold;
+    background-color: #1D5B79;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+}
